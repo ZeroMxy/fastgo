@@ -20,7 +20,7 @@ func Local (context *fiber.Ctx, file *multipart.FileHeader) string {
 	var file_folder_path = "storage/upload/"
 
 	// 不存在则创建目录
-	if !tool.Path_is_exist(file_folder_path) {
+	if (!tool.Path_is_exist(file_folder_path)) {
 		os.MkdirAll(file_folder_path, os.ModePerm)
 	}
 

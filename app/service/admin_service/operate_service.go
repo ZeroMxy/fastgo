@@ -19,15 +19,15 @@ func Get_operate_info (id int, name, path, method string) *model.Operate {
 
 	var operate_info_sql = model.DB().Table("operate")
 
-	if id > 0 {
+	if (id > 0) {
 		operate_info_sql = operate_info_sql.Where("id = ?", id)
 	}
 
-	if name != "" {
+	if (name != "") {
 		operate_info_sql = operate_info_sql.Where("name = ?", name)
 	}
 
-	if path != "" && method != "" {
+	if (path != "" && method != "") {
 		operate_info_sql = operate_info_sql.Where("path = ?", path).Where("method = ?", method)
 	}
 
@@ -42,7 +42,7 @@ func Create_operate (operate *model.Operate) bool {
 
 	var affected, _ = model.DB().Table("operate").Insert(operate)
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -55,7 +55,7 @@ func Delete_operate (id int) bool {
 
 	var affected, _ = model.DB().Table("operate").Where("id = ?", id).Delete(&model.Operate {})
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -68,7 +68,7 @@ func Update_operate (operate *model.Operate) bool {
 
 	var affected, _ = model.DB().Table("operate").Update(operate)
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -83,7 +83,7 @@ func Select_operate (name string) *[]model.Operate {
 
 	var role_select_sql = model.DB().Table("operate").Desc("id").Where("status = 1")
 
-	if name != "" {
+	if (name != "") {
 		role_select_sql = role_select_sql.Where("name like ?", "%" + name + "%")
 	}
 
@@ -100,7 +100,7 @@ func Operate_menu (operate_ids_array []string, menu_id int) bool {
 						In("id", operate_ids_array).
 						Update(map[string] int { "menu_id": menu_id})
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 

@@ -22,7 +22,7 @@ func Initialize (log_prefix string) *os.File {
 	var log_folder_path = config.Log["path"]
 
 	// 不存在则创建目录
-	if !tool.Path_is_exist(log_folder_path) {
+	if (!tool.Path_is_exist(log_folder_path)) {
 		os.MkdirAll(log_folder_path, os.ModePerm)
 	}
 
@@ -31,7 +31,7 @@ func Initialize (log_prefix string) *os.File {
 
 	var log_name string
 
-	switch log_model {
+	switch (log_model) {
 		case "single":
 			log_name = log_folder_path + log_prefix + ".log"
 			break
@@ -91,11 +91,11 @@ func Error (log_info ...interface {}) {
 // 清理日志文件
 func clear_log_file (log_model, log_path, log_prefix string, log_day int) {
 
-	if log_model == "daily" && log_day > 0 {
+	if (log_model == "daily" && log_day > 0) {
 		var log_file_path = log_path + log_prefix + "-" + time.Now().AddDate(0, 0, -log_day).Format("2006-01-02") + ".log"
 		
 		// 存在则删除日志文件
-		if tool.Path_is_exist(log_file_path) {
+		if (tool.Path_is_exist(log_file_path)) {
 			os.Remove(log_file_path)
 		}
 	}

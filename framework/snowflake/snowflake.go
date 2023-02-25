@@ -36,7 +36,7 @@ func Get_id () int64 {
 	machine_id, type_cast_err = strconv.ParseInt(config.App["machine_id"], 10, 64)
 	start_time, type_cast_err = strconv.ParseInt(config.App["start_time"], 10, 64)
 	
-	if type_cast_err != nil {
+	if (type_cast_err != nil) {
 		log.Error(type_cast_err)
 	}
 
@@ -50,13 +50,13 @@ func get_id () int64 {
 	var milliseconds = get_milliseconds()
 
 	// 当前时间小于上次时间生成失败
-	if milliseconds < timestamp {
+	if (milliseconds < timestamp) {
 		return 0
 	}
 
-	if milliseconds == timestamp {
+	if (milliseconds == timestamp) {
 		number++
-		if number > number_max {
+		if (number > number_max) {
 			for milliseconds <= timestamp {
 				milliseconds = get_milliseconds()
 			}

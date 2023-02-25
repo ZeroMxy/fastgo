@@ -32,7 +32,7 @@ func (this *Tool_controller) Upload (context *fiber.Ctx) error {
 
 	var file, file_err = context.FormFile("file")
 
-	if file_err != nil || file == nil {
+	if (file_err != nil || file == nil) {
 		this.Fail(context, "上传失败")
 		return nil
 	}
@@ -42,7 +42,7 @@ func (this *Tool_controller) Upload (context *fiber.Ctx) error {
 	var suffix = []string { "jpg", "gif", "png", "jpeg", "docx", "doc", "xlsx", "xls" }
 	
 	// 文件后缀不存在/不在后缀数组中
-	if len(file_name_array) <= 1 || !tool.In_array(suffix, file_name_array[1]) {
+	if (len(file_name_array) <= 1 || !tool.In_array(suffix, file_name_array[1])) {
 		this.Fail(context, "文件格式错误")
 		return nil
 	}

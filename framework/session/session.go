@@ -25,7 +25,7 @@ func session_initialize (context *fiber.Ctx) {
 
 		sess, sess_err = store.Get(context)
 
-		if sess_err != nil {
+		if (sess_err != nil) {
 			log.Error(sess_err)
 			return
 		}
@@ -54,7 +54,7 @@ func Get (context *fiber.Ctx, key string) string {
 
 	var value = sess.Get(key)
 
-	if value == nil {
+	if (value == nil) {
 		return ""
 	}
 

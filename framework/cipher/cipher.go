@@ -14,7 +14,7 @@ func Encrypt (param string) string {
 	
 	var param_hash, hash_err = bcrypt.GenerateFromPassword(param_byte, bcrypt.MinCost)
 
-	if hash_err != nil {
+	if (hash_err != nil) {
 		log.Error(hash_err)
 	}
 	
@@ -30,7 +30,7 @@ func Verify (param_encrypted, param string) bool {
 
 	var hash_err = bcrypt.CompareHashAndPassword(param_encrypted_byte, param_byte)
 
-	if hash_err != nil {
+	if (hash_err != nil) {
 		return false
 	}
 

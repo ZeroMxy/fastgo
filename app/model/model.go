@@ -20,7 +20,7 @@ type Format_time time.Time
 func (this Format_time) MarshalJSON () ([]byte, error) {
 
 	//当返回时间为空时，需特殊处理
-    if time.Time(this).IsZero() {
+    if (time.Time(this).IsZero()) {
         return []byte(`""`), nil
     }
 

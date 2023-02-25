@@ -19,7 +19,7 @@ func (this *Admin_middleware) Handle (context *fiber.Ctx) error {
 
 	var token = context.Query("token")
 
-	if token == "" {
+	if (token == "") {
 		// token 为空判断
 		this.Token_fail(context)
 		return nil
@@ -27,7 +27,7 @@ func (this *Admin_middleware) Handle (context *fiber.Ctx) error {
 
 	var user_id = session.Get(context, token)
 
-	if user_id == "" {
+	if (user_id == "") {
 		// 用户信息不存在
 		this.Token_fail(context)
 		return nil
@@ -38,7 +38,7 @@ func (this *Admin_middleware) Handle (context *fiber.Ctx) error {
 	// 鉴权
 	var authentication_result = authentication(context, uid)
 
-	if !authentication_result {
+	if (!authentication_result) {
 		this.Fail(context, "权限不足")
 		return nil
 	}
@@ -54,19 +54,19 @@ func authentication (context *fiber.Ctx, uid int) bool {
 
 	var user = admin_service.Get_user_info(uid, "")
 
-	if user == nil || user.Status == 0 || user.User_type != 1 {
+	if (user == nil || user.Status == 0 || user.User_type != 1) {
 		// 非后台/禁用状态
 		return false
 	}
 
-	if user.Role_id == 1 {
+	if (user.Role_id == 1) {
 		// 超级管理员
 		return true
 	}
 
 	var role = admin_service.Get_role_info(user.Role_id, "")
 
-	if role == nil || role.Status == 0 || (role.Id != 1 && role.Menu_id == "") {
+	if (role == nil || role.Status == 0 || (role.Id != 1 && role.Menu_id == "")) {
 		// 无角色/禁用状态/不是超管没绑定菜单
 		return false
 	}
@@ -79,7 +79,7 @@ func authentication (context *fiber.Ctx, uid int) bool {
 
 	var operate = admin_service.Get_operate_info(0, "", path, method)
 
-	if operate == nil  {
+	if (operate == nil)  {
 		// 未找到操作权限
 		return false
 	}
@@ -90,7 +90,7 @@ func authentication (context *fiber.Ctx, uid int) bool {
 	// 寻找菜单与访问的操作地址关系
 	for _, value := range menu_id_array {
 
-		if value == strconv.Itoa(operate.Menu_id) {
+		if (value == strconv.Itoa(operate.Menu_id)) {
 			is_exist = true
 			break
 		}

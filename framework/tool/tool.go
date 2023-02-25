@@ -25,7 +25,7 @@ func In_array (array []string, target string) bool {
 	var index = sort.SearchStrings(array, target)
 
 	// 小于等于最后一个元素的索引和值相等的情况下存在
-	if index <= len(array) && array[index] == target {
+	if (index <= len(array) && array[index] == target) {
 		return true
 	}
 
@@ -39,7 +39,7 @@ func Path_is_exist (path string) bool {
 
 	var _, path_err = os.Stat(path)
 
-	if path_err != nil {
+	if (path_err != nil) {
 		return false
 	}
 
@@ -77,7 +77,7 @@ const (
 // 日期格式化
 func Format_date_time (layout, date_time string) string {
 
-	if date_time == "" {
+	if (date_time == "") {
 		date_time = time.Now().Format(layout)
 	} else {
 		var time_value, _ = time.Parse(layout, date_time)
@@ -92,16 +92,16 @@ func Format_date_time (layout, date_time string) string {
 func Hide_string (data, symbol string, start, length int) string {
 
 	// 符号赋默认值
-	if symbol == "" {
+	if (symbol == "") {
 		symbol = "*"
 	}
 
 	// 字符串空返回拼接隐藏符号
-	if data == "" {
+	if (data == "") {
 		return symbol + symbol + symbol + symbol
 	}
 
-	if start < 0 || length <= 0 {
+	if (start < 0 || length <= 0) {
 		return data
 	}
 
@@ -109,7 +109,7 @@ func Hide_string (data, symbol string, start, length int) string {
 	// 字符串转数组并循环
 	for index, value := range strings.Split(data, "") {
 
-		if index >= start && index <= length - 1 {
+		if (index >= start && index <= length - 1) {
 			string_value += symbol
 		} else {
 			string_value += value
@@ -129,7 +129,7 @@ func Json_to_map (json_data []byte) map[string] interface {} {
 
 	var err = json.Unmarshal(json_data, &data)
 
-	if err != nil {
+	if (err != nil) {
 		return nil
 	}
 
@@ -146,12 +146,12 @@ func Struct_to_map (struct_data interface {}, tag_name string) map[string] inter
 	var value = reflect.ValueOf(struct_data)
 
 	// 非结构体返回空
-	if value.Kind() != reflect.Struct {
+	if (value.Kind() != reflect.Struct) {
 		return nil
 	}
 
 	// 比对类别取元素
-	if value.Kind() == reflect.Ptr {
+	if (value.Kind() == reflect.Ptr) {
 		value = value.Elem()
 	}
 
@@ -163,7 +163,7 @@ func Struct_to_map (struct_data interface {}, tag_name string) map[string] inter
 		var field_index = type_value.Field(i)
 		var tag_value 	= field_index.Tag.Get(tag_name)
 
-		if tag_value != "" {
+		if (tag_value != "") {
 			map_data[tag_value] = value.Field(i).Interface()
 		}
 

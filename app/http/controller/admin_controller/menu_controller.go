@@ -38,7 +38,7 @@ func (this *Menu_controller) Menu_info (context *fiber.Ctx) error {
 
 	var id, _ = strconv.Atoi(context.Query("id"))
 
-	if id <= 0 {
+	if (id <= 0) {
 		this.Fail(context, "缺少参数")
 		return nil
 	}
@@ -61,14 +61,14 @@ func (this *Menu_controller) Create_menu (context *fiber.Ctx) error {
 	var component 		= context.Query("component")
 	var key 			= context.Query("key")
 
-	if name == "" {
+	if (name == "") {
 		this.Fail(context, "请添加菜单名")
 		return nil
 	}
 
 	var menu = admin_service.Get_menu_info(0, name)
 
-	if menu != nil {
+	if (menu != nil) {
 		this.Fail(context, "菜单名已存在")
 		return nil
 	}
@@ -84,7 +84,7 @@ func (this *Menu_controller) Create_menu (context *fiber.Ctx) error {
 					Status: 	status,
 				})
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "添加失败")
 		return nil
 	}
@@ -100,21 +100,21 @@ func (this *Menu_controller) Delete_menu (context *fiber.Ctx) error {
 
 	var id, _ = strconv.Atoi(context.Query("id"))
 
-	if id <= 0 {
+	if (id <= 0) {
 		this.Fail(context, "删除失败")
 		return nil
 	}
 
 	var menu_children = admin_service.Menu_children(id)
 
-	if menu_children != nil {
+	if (menu_children != nil) {
 		this.Fail(context, "存在下级菜单")
 		return nil
 	}
 
 	var result = admin_service.Delete_menu(id)
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "删除失败")
 		return nil
 	}
@@ -140,7 +140,7 @@ func (this *Menu_controller) Update_menu (context *fiber.Ctx) error {
 
 	var menu_info = admin_service.Get_menu_info(0, name)
 
-	if menu_info != nil && menu_info.Id != id {
+	if (menu_info != nil && menu_info.Id != id) {
 		this.Fail(context, "菜单名已存在")
 		return nil
 	}
@@ -160,7 +160,7 @@ func (this *Menu_controller) Update_menu (context *fiber.Ctx) error {
 
 	var result = admin_service.Update_menu(&menu)
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "修改失败")
 		return nil
 	}
@@ -180,14 +180,14 @@ func (this *Menu_controller) Menu_operate (context *fiber.Ctx) error {
 	// 操作权限 id 集合进行分割
 	var operate_ids_array = strings.Split(operate_ids, ",")
 
-	if len(operate_ids_array) <= 0 || id <= 0{
+	if (len(operate_ids_array) <= 0 || id <= 0) {
 		this.Fail(context, "缺少参数")
 		return nil
 	}
 
 	var result = admin_service.Operate_menu(operate_ids_array, id)
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "绑定失败")
 		return nil
 	}

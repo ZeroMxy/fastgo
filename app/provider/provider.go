@@ -14,7 +14,7 @@ type Provider struct {}
 func (this *Provider) Route_server (app *fiber.App) {
 
 	// 开启 api 请求日志
-	if config.Log["system"] == "true" {
+	if (config.Log["system"] == "true") {
 		var log_file = log.Initialize("system")
 	
 		app.Use(logger.New(logger.Config {

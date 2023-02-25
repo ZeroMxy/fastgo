@@ -34,7 +34,7 @@ func (this *Role_controller) Role_info (context *fiber.Ctx) error {
 
 	var id, _ = strconv.Atoi(context.Query("id"))
 
-	if id <= 0 {
+	if (id <= 0) {
 		this.Fail(context, "缺少参数")
 		return nil
 	}
@@ -52,14 +52,14 @@ func (this *Role_controller) Create_role (context *fiber.Ctx) error {
 	var name 		= context.Query("name")
 	var menu_id 	= context.Query("menu_id")
 
-	if name == "" {
+	if (name == "") {
 		this.Fail(context, "请添加角色名")
 		return nil
 	}
 
 	var role = admin_service.Get_role_info(0, name)
 
-	if role != nil {
+	if (role != nil) {
 		this.Fail(context, "角色名已存在")
 		return nil
 	}
@@ -70,7 +70,7 @@ func (this *Role_controller) Create_role (context *fiber.Ctx) error {
 					Status: 	status,
 				})
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "添加失败")
 		return nil
 	}
@@ -86,14 +86,14 @@ func (this *Role_controller) Delete_role (context *fiber.Ctx) error {
 
 	var id, _ = strconv.Atoi(context.Query("id"))
 
-	if id <= 1 {
+	if (id <= 1) {
 		this.Fail(context, "超管角色不可删除")
 		return nil
 	}
 
 	var result = admin_service.Delete_role(id)
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "删除失败")
 		return nil
 	}
@@ -112,7 +112,7 @@ func (this *Role_controller) Update_role (context *fiber.Ctx) error {
 	var name 		= context.Query("name")
 	var menu_id 	= context.Query("menu_id")
 
-	if id <= 1 {
+	if (id <= 1) {
 		this.Fail(context, "超管角色不可修改")
 		return nil
 	}
@@ -127,7 +127,7 @@ func (this *Role_controller) Update_role (context *fiber.Ctx) error {
 
 	var result = admin_service.Update_role(&role)
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "修改失败")
 		return nil
 	}

@@ -36,7 +36,7 @@ func (this *Operate_controller) Operate_info (context *fiber.Ctx) error {
 
 	var id, _ = strconv.Atoi(context.Query("id", "0"))
 
-	if id <= 0 {
+	if (id <= 0) {
 		this.Fail(context, "缺少参数")
 		return nil
 	}
@@ -56,24 +56,24 @@ func (this *Operate_controller) Create_operate (context *fiber.Ctx) error {
 	var path 	= context.Query("path")
 	var method 	= context.Query("method")
 
-	if name == "" {
+	if (name == "") {
 		this.Fail(context, "请添加操作权限名称")
 		return nil
 	}
 
-	if path == "" {
+	if (path == "") {
 		this.Fail(context, "请添加操作权限地址")
 		return nil
 	}
 
-	if method == "" {
+	if (method == "") {
 		this.Fail(context, "请选择操作权限请求方式")
 		return nil
 	}
 
 	var operate = admin_service.Get_operate_info(0, "", path, method)
 
-	if operate != nil {
+	if (operate != nil) {
 		this.Fail(context, "操作权限已存在")
 		return nil
 	}
@@ -84,7 +84,7 @@ func (this *Operate_controller) Create_operate (context *fiber.Ctx) error {
 					Method: method,
 				})
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "添加失败")
 		return nil
 	}
@@ -100,14 +100,14 @@ func (this *Operate_controller) Delete_operate (context *fiber.Ctx) error {
 
 	var id, _ = strconv.Atoi(context.Query("id"))
 
-	if id <= 0 {
+	if (id <= 0) {
 		this.Fail(context, "缺少参数")
 		return nil
 	}
 
 	var result = admin_service.Delete_operate(id)
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "删除失败")
 		return nil
 	}
@@ -126,14 +126,14 @@ func (this *Operate_controller) Update_operate (context *fiber.Ctx) error {
 	var path 	= context.Query("path")
 	var method 	= context.Query("method")
 
-	if id <= 0 {
+	if (id <= 0) {
 		this.Fail(context, "缺少参数")
 		return nil
 	}
 
 	var operate_info = admin_service.Get_operate_info(0, "", path, method)
 
-	if operate_info != nil && operate_info.Id != id {
+	if (operate_info != nil && operate_info.Id != id) {
 		this.Fail(context, "操作权限已存在")
 		return nil
 	}
@@ -148,7 +148,7 @@ func (this *Operate_controller) Update_operate (context *fiber.Ctx) error {
 
 	var result = admin_service.Update_operate(&operate)
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "修改失败")
 		return nil
 	}
@@ -176,14 +176,14 @@ func (this *Operate_controller) Sync_operate (context *fiber.Ctx) error {
 	// 获取所有路由
 	var routes = context.App().GetRoutes()
 
-	if len(routes) <= 0 {
+	if (len(routes) <= 0) {
 		this.Fail(context, "同步失败")
 		return nil
 	}
 
 	for _, route := range routes {
 
-		if route.Name != "" && admin_service.Get_operate_info(0, "", route.Path, route.Method) == nil {
+		if (route.Name != "" && admin_service.Get_operate_info(0, "", route.Path, route.Method) == nil) {
 			// 路由名不为空&库里不存在同步到数据库
 			admin_service.Create_operate(&model.Operate{
 				Menu_id: 	0,

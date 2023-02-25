@@ -15,23 +15,23 @@ func Get_user_list (user_type, status, username, nickname, phone string) *xorm.S
 						Desc("user.id")
 
 	// 条件
-	if user_type != "-1" {
+	if (user_type != "-1") {
 		user_list_sql = user_list_sql.Where("user.user_type = ?", user_type)
 	}
 
-	if status != "-1" {
+	if (status != "-1") {
 		user_list_sql = user_list_sql.Where("user.status = ?", status)
 	}
 
-	if username != "" {
+	if (username != "") {
 		user_list_sql = user_list_sql.Where("user.username like ?", "%" + username + "%")
 	}
 
-	if nickname != "" {
+	if (nickname != "") {
 		user_list_sql = user_list_sql.Where("user.nickname like ?", "%" + nickname + "%")
 	}
 
-	if phone != "" {
+	if (phone != "") {
 		user_list_sql = user_list_sql.Where("user.phone = ?", phone)
 	}
 
@@ -48,11 +48,11 @@ func Get_user_info (id int, username string) *model.User_extend {
 						Join("inner", "role", "role.id = user.role_id").
 						Select("user.*, role.id as role_id, role.name as role_name")
 
-	if id > 0 {
+	if (id > 0) {
 		user_info_sql = user_info_sql.Where("user.id = ?", id)
 	}
 
-	if username != "" {
+	if (username != "") {
 		user_info_sql = user_info_sql.Where("user.username = ?", username)
 	}
 
@@ -67,7 +67,7 @@ func Create_user (user *model.User) bool {
 
 	var affected, _ = model.DB().Table("user").Insert(user)
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -80,7 +80,7 @@ func Delete_user (id int) bool {
 
 	var affected, _ = model.DB().Table("user").Where("id = ?", id).Delete(&model.User {})
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -93,7 +93,7 @@ func Update_user (user *model.User) bool {
 
 	var affected, _ = model.DB().Table("user").Where("id = ?", user.Id).Update(user)
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 

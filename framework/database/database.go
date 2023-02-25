@@ -26,7 +26,7 @@ func initialize () {
 		var drive = config.Database["drive"]
 
 		// 驱动选择
-		switch drive {
+		switch (drive) {
 			case "mysql":
 				xorm_conn, xorm_err = mysql_connection(drive)
 
@@ -38,7 +38,7 @@ func initialize () {
 
 		}
 
-		if xorm_err != nil {
+		if (xorm_err != nil) {
 			log.Error(xorm_err)
 			return
 		}

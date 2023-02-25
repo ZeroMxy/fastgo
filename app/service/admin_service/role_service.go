@@ -19,11 +19,11 @@ func Get_role_info (id int, name string) *model.Role {
 
 	var role_info_sql = model.DB().Table("role")
 
-	if id > 0 {
+	if (id > 0) {
 		role_info_sql = role_info_sql.Where("id = ?", id)
 	}
 
-	if name != "" {
+	if (name != "") {
 		role_info_sql = role_info_sql.Where("name = ?", name)
 	}
 
@@ -38,7 +38,7 @@ func Create_role (role *model.Role) bool {
 
 	var affected, _ = model.DB().Table("role").Insert(role)
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -51,7 +51,7 @@ func Delete_role (id int) bool {
 
 	var affected, _ = model.DB().Table("role").Where("id = ?", id).Delete(&model.Role {})
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -64,7 +64,7 @@ func Update_role (role *model.Role) bool {
 
 	var affected, _ = model.DB().Table("role").Update(role)
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -79,7 +79,7 @@ func Select_role (name string) *[]model.Role {
 
 	var role_select_sql = model.DB().Table("role").Desc("id").Where("status = 1")
 
-	if name != "" {
+	if (name != "") {
 		role_select_sql = role_select_sql.Where("name like ?", "%" + name + "%")
 	}
 

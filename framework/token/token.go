@@ -24,7 +24,7 @@ func Create (context *fiber.Ctx, value string) string {
 
 	var session_bool = session.Set(context, token, value)
 
-	if session_bool {
+	if (session_bool) {
 		return token
 	}
 

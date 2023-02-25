@@ -28,7 +28,7 @@ func Create (context *fiber.Ctx, font_path string) string {
 
 	var session_captcha = session.Set(context, "captcha", captcha_context)
 
-	if !session_captcha {
+	if (!session_captcha) {
 		return ""
 	}
 
@@ -54,7 +54,7 @@ func Verify (context *fiber.Ctx, captcha string) bool {
 	// session 获取存入验证码内容
 	var session_captcha = session.Get(context, "captcha")
 
-	if session_captcha == "" || session_captcha != captcha {
+	if (session_captcha == "" || session_captcha != captcha) {
 		return false
 	}
 

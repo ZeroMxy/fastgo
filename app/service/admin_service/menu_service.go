@@ -11,7 +11,7 @@ func Get_menu_list (ids []string) *[]model.Menu {
 
 	var menus_sql = model.DB().Table("menu").Select("menu.*").Where("menu.status = 1")
 
-	if len(ids) > 0 {
+	if (len(ids) > 0) {
 		menus_sql = menus_sql.In("id", ids)
 	}
 
@@ -28,11 +28,11 @@ func Get_menu_info (id int, name string) *model.Menu {
 
 	var menu_info_sql = model.DB().Table("menu")
 
-	if id > 0{
+	if (id > 0) {
 		menu_info_sql = menu_info_sql.Where("id = ?", id)
 	}
 
-	if name != "" {
+	if (name != "") {
 		menu_info_sql = menu_info_sql.Where("name = ?", name)
 	}
 
@@ -47,7 +47,7 @@ func Create_menu (menu *model.Menu) bool {
 
 	var affected, _ = model.DB().Table("menu").Insert(menu)
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -60,7 +60,7 @@ func Delete_menu (id int) bool {
 
 	var affected, _ = model.DB().Table("menu").Where("id = ?", id).Delete(&model.Menu {})
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -73,7 +73,7 @@ func Update_menu (menu *model.Menu) bool {
 
 	var affected, _ = model.DB().Table("menu").Update(menu)
 
-	if affected > 0 {
+	if (affected > 0) {
 		return true
 	}
 
@@ -100,7 +100,7 @@ func Menu_to_tree (menus []model.Menu, parent_id int) []model.Menu_extend {
 
 	for _, value := range menus {
 		// 循环中找到子级
-		if value.Status == 1 && value.Parent_id == parent_id {
+		if (value.Status == 1 && value.Parent_id == parent_id) {
 			// 获取子级菜单
 			var children = Menu_to_tree(menus, value.Id)
 

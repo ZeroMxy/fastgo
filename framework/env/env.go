@@ -13,16 +13,16 @@ func Get (name, default_value string) string {
 
 	var file, err = ini.Load("env.ini")
 
-	if err != nil {
+	if (err != nil) {
 		panic(err)
 	}
 
-	if name == "" {
+	if (name == "") {
 		panic("参数错误")
 	}
 
 	// 下级 name 不存在
-	if !strings.Contains(name, ".") {
+	if (!strings.Contains(name, ".")) {
 		return file.Section("").Key(name).MustString(default_value)
 	}
 

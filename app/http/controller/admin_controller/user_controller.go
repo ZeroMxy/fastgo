@@ -48,11 +48,11 @@ func (this *User_controller) User_info (context *fiber.Ctx) error {
 	var token = context.Query("token")
 
 	// 未传属于登录从缓存中获取 
-	if id <= 0 {
+	if (id <= 0) {
 		id, _ = strconv.Atoi(session.Get(context, token))
 	}
 
-	if id <= 0 {
+	if (id <= 0) {
 		this.Fail(context, "缺少参数")
 		return nil
 	}
@@ -61,7 +61,7 @@ func (this *User_controller) User_info (context *fiber.Ctx) error {
 
 	var menu_id = make([]string, 0)
 
-	if user_extend.Id != 1 {
+	if (user_extend.Id != 1) {
 		// 获取角色绑定的菜单 id 集合进行分割
 		var menu_id_string = admin_service.Get_role_info(user_extend.Role_id, "").Menu_id
 		menu_id = strings.Split(menu_id_string, ",")
@@ -92,12 +92,12 @@ func (this *User_controller) Create_user (context *fiber.Ctx) error {
 	var email 			= context.Query("email")
 	var avatar 			= context.Query("avatar")
 
-	if username == "" {
+	if (username == "") {
 		this.Fail(context, "请添加用户名")
 		return nil
 	}
 
-	if phone == "" {
+	if (phone == "") {
 		this.Fail(context, "请添加手机号")
 		return nil
 	}
@@ -116,7 +116,7 @@ func (this *User_controller) Create_user (context *fiber.Ctx) error {
 					Status: 	status,
 				})
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "添加失败")
 		return nil
 	}
@@ -132,14 +132,14 @@ func (this *User_controller) Delete_user (context *fiber.Ctx) error {
 
 	var id, _ = strconv.Atoi(context.Query("id"))
 
-	if id <= 1 {
+	if (id <= 1) {
 		this.Fail(context, "超管不可删除")
 		return nil
 	}
 
 	var result = admin_service.Delete_user(id)
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "删除失败")
 		return nil
 	}
@@ -166,7 +166,7 @@ func (this *User_controller) Update_user (context *fiber.Ctx) error {
 	var email 			= context.Query("email")
 	var avatar 			= context.Query("avatar")
 
-	if id <= 1 {
+	if (id <= 1) {
 		this.Fail(context, "暂不支持修改超管或不存在的用户")
 		return nil
 	}
@@ -189,7 +189,7 @@ func (this *User_controller) Update_user (context *fiber.Ctx) error {
 
 	var result = admin_service.Update_user(&user)
 
-	if !result {
+	if (!result) {
 		this.Fail(context, "修改失败")
 		return nil
 	}
@@ -207,40 +207,40 @@ func (this *User_controller) Login (context *fiber.Ctx) error {
 	var password 		= context.Query("password")
 	var captcha_base64	= context.Query("captcha")
 
-	if !captcha.Verify(context, captcha_base64) {
+	if (!captcha.Verify(context, captcha_base64)) {
 		this.Fail(context, "验证码错误")
 		return nil
 	}
 
-	if username == "" || password == "" {
+	if (username == "" || password == "") {
 		this.Fail(context, "请输入有效用户名或密码")
 		return nil
 	}
 
 	var user = admin_service.Get_user_info(0, username)
 	
-	if user.Id > 0 {
+	if (user.Id > 0) {
 		// 验证密码
 		var verify = cipher.Verify(user.Password, password)
 
-		if !verify {
+		if (!verify) {
 			this.Fail(context, "密码错误")
 			return nil
 		}
 
-		if user.Status == 0 {
+		if (user.Status == 0) {
 			this.Fail(context, "账户被禁用")
 			return nil
 		}
 
-		if user.User_type != 1 {
+		if (user.User_type != 1) {
 			this.Fail(context, "非后台用户")
 			return nil
 		}
 
 		var token = token.Create(context, strconv.Itoa(user.Id))
 
-		if token == "" {
+		if (token == "") {
 			this.Fail(context, "登录失败")
 			return nil
 		}
@@ -251,7 +251,7 @@ func (this *User_controller) Login (context *fiber.Ctx) error {
 		return nil
 	}
 
-	if username == "admin" {
+	if (username == "admin") {
 		var result = admin_service.Create_user(&model.User {
 						User_type: 	1,
 						Username: 	"admin",
@@ -260,7 +260,7 @@ func (this *User_controller) Login (context *fiber.Ctx) error {
 						Phone: 		"110",
 						Status: 	1,
 					})
-		if result {
+		if (result) {
 			this.Fail(context, "超管创建成功，请重新登陆")
 			return nil
 		}
