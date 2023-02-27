@@ -1,4 +1,4 @@
-package tool
+package fastgo
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-type Tool struct {}
+type Fastgo struct {}
 
 // 搜索数组中是否存在指定的值
 // 存在 => true / 不存在 => false

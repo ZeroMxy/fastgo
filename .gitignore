@@ -30,4 +30,4 @@ go.work
 storage/log/
 storage/file/
 
-env.ini
+env.json
